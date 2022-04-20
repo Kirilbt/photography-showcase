@@ -14,12 +14,12 @@ const infos = [
   },
   {
     'image': new URL('static/pineapple1.jpg', import.meta.url),
-    'title': 'Pinneaple',
+    'title': 'Pineapple',
     'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
   },
   {
     'image': new URL('static/pineapple2.jpg', import.meta.url),
-    'title': 'Pinneaple',
+    'title': 'Pineapple',
     'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
   }
 ]
