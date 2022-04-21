@@ -1,53 +1,51 @@
 body {
   margin: 0;
   padding: 0;
-  width: 100vw;
+}
+
+html {
+  background-color: #fff1d8;
 }
 
 .container {
-  height: auto;
-  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .box {
+  top: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100%;
-  margin: 15% 0%;
+  min-height: 100vh;
 }
 
 .image {
   width: 40%;
-  opacity: 1;
 }
 
 .title {
   position: absolute;
   font-size: 150px;
   color: grey;
-  opacity: 1;
-  transition: opacity 0.5s;
-  transition-delay: 0.1s;
-  /* transform: translateY(-100%); */
 }
 
 .detail {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  width: 30%;
+  width: 40%;
   margin-top: 16px;
-  transition: opacity 0.5s;
-  opacity: 1;
-  transition-delay: 0.1s;
 }
 
 .detail p {
   color: grey;
+}
+
+header, footer {
+  height: 500px;
 }
