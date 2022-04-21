@@ -5,31 +5,31 @@ const infos = [
   {
     'image': new URL('static/fruits.jpg', import.meta.url),
     'title': 'Fruits',
-    'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
+    'detail': ['May 2019','Bern, Switzerland'],
     'color': '#fff1d8'
   },
   {
     'image': new URL('static/power.jpg', import.meta.url),
     'title': 'Power',
-    'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
-    'color': '#d8ffdb'
+    'detail': ['November 2019', 'Lausanne, Switzerland'],
+    'color': '#d1ebd3'
   },
   {
     'image': new URL('static/minimal.jpg', import.meta.url),
     'title': 'Minimal',
-    'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
+    'detail': ['March 2019', 'Bern, Switzerland'],
     'color': '#f0f0f0'
   },
   {
     'image': new URL('static/neon.jpg', import.meta.url),
     'title': 'Neon',
-    'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
+    'detail': ['November 2019', 'Bern, Switzerland'],
     'color': '#d8fff6'
   },
   {
     'image': new URL('static/light.jpg', import.meta.url),
     'title': 'Light',
-    'detail': ['Model: Ajsa Njie', 'MU: Sabrina Wolf', 'Bern, Switzerland'],
+    'detail': ['September 2018', 'Milano, Italy'],
     'color': '#fff1d8'
   }
 ]
@@ -91,12 +91,12 @@ gsap.utils.toArray(".box").map((elem) => {
       trigger: elem,
       start: 'top 5%',
       end: 'bottom 5%',
-      markers: true,
+      markers: false,
       onToggle() {
         gsap.to("body", {
           backgroundColor: color,
           duration: 1.4
-        });
+        })
       }
   });
 
