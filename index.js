@@ -88,35 +88,33 @@ insertSection(infos, container)
 
 gsap.utils.toArray(".box").map((elem) => {
 
-  var color = elem.getAttribute('data-color');
+  var bgColor = elem.getAttribute('data-color');
 
   let trigger = ScrollTrigger.create({
-      trigger: elem,
-      start: 'top 5%',
-      end: 'bottom 5%',
-      markers: false,
-      onToggle() {
-        gsap.to("body", {
-          backgroundColor: color,
-          duration: 1.4
-        })
-      },
-      // snap: 1 / (elem - 1)
+    trigger: elem,
+    start: 'top 5%',
+    end: 'bottom 5%',
+    markers: false,
+    onToggle() {
+      gsap.to('body', {
+        backgroundColor: bgColor,
+        duration: 1.2
+      })
+    }
   });
 
   return () => {
-    color = elem.getAttribute('data-color');
+    bGcolor = elem.getAttribute('data-color');
     if (trigger.isActive) {
       gsap.killTweensOf("body");
       gsap.set("body", {
-        backgroundColor: color
+        backgroundColor: bgColor
       })
     }
   }
 });
 
-// Immediate scrollTo
-
+// Immediate snap
 let sections = gsap.utils.toArray(".box");
 
 function goToSection(i) {
