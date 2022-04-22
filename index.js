@@ -38,6 +38,10 @@ const infos = [
   }
 ]
 
+/**
+ * Generate content
+ */
+
 const insertSection = (array, container) => {
   array.forEach((e, index) => {
     let section = document.createElement('section')
@@ -84,7 +88,9 @@ let container = document.querySelector('.container')
 insertSection(infos, container)
 
 
-// Change color
+/**
+ * Change background color
+ */
 
 gsap.utils.toArray(".box").map((elem) => {
 
@@ -94,11 +100,11 @@ gsap.utils.toArray(".box").map((elem) => {
     trigger: elem,
     start: 'top 5%',
     end: 'bottom 5%',
-    markers: false,
+    // markers: true,
     onToggle() {
       gsap.to('body', {
         backgroundColor: bgColor,
-        duration: 1.2
+        duration: '1.2'
       })
     }
   });
@@ -114,13 +120,16 @@ gsap.utils.toArray(".box").map((elem) => {
   }
 });
 
-// Immediate snap
 let sections = gsap.utils.toArray(".box");
+
+/**
+ * Immediate snap
+ */
 
 function goToSection(i) {
   gsap.to(window, {
     scrollTo: { y: i * innerHeight, autoKill: false, ease: "Power3.easeInOut" },
-    duration: 0.85
+    duration: 0.8
   });
 }
 
@@ -129,7 +138,7 @@ ScrollTrigger.defaults({
 });
 
 sections.forEach((box, i) => {
-  // const mainAnim = gsap.timeline({ paused: true });
+  const mainAnim = gsap.timeline({ paused: true });
 
   ScrollTrigger.create({
     trigger: box,
@@ -141,4 +150,29 @@ sections.forEach((box, i) => {
     start: "bottom bottom",
     onEnterBack: () => goToSection(i)
   });
+
+  /**
+   * Mouse hover
+   */
+
+  box.addEventListener("mouseenter", () => {
+    gsap.to(box, {scale: 1.1, duration: 0.5, overwrite: true});
+  })
+
+  box.addEventListener("mouseleave", () => {
+    gsap.to(sections, {scale: 1, duration: 0.5, overwrite: true});
+  })
+
 });
+
+/**
+ * Custom Cursor
+ */
+
+const customCursorInner = document.querySelector('.custom__cursor__inner')
+const customCursorOuter = document.querySelector('.custom__cursor__outer')
+
+document.addEventListener('mousemove', e => {
+  customCursorInner.setAttribute('style', 'top: '+(e.clientY - 4)+'px; left: '+(e.clientX - 4)+'px;')
+  customCursorOuter.setAttribute('style', 'top: '+(e.clientY - 24)+'px; left: '+(e.clientX - 24)+'px;')
+})
