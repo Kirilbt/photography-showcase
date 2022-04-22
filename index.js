@@ -1,5 +1,9 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollToPlugin);
 
 const infos = [
   {
@@ -23,7 +27,7 @@ const infos = [
   {
     'image': new URL('static/neon.jpg', import.meta.url),
     'title': 'Neon',
-    'detail': ['November 2019', 'Bern, Switzerland'],
+    'detail': ['November 2019', 'Zurich, Switzerland'],
     'color': '#d8fff6'
   },
   {
@@ -81,7 +85,6 @@ insertSection(infos, container)
 
 
 // Change color
-gsap.registerPlugin(ScrollTrigger)
 
 gsap.utils.toArray(".box").map((elem) => {
 
@@ -97,7 +100,8 @@ gsap.utils.toArray(".box").map((elem) => {
           backgroundColor: color,
           duration: 1.4
         })
-      }
+      },
+      // snap: 1 / (elem - 1)
   });
 
   return () => {
@@ -109,4 +113,34 @@ gsap.utils.toArray(".box").map((elem) => {
       })
     }
   }
+});
+
+// Immediate scrollTo
+
+let sections = gsap.utils.toArray(".box");
+
+function goToSection(i) {
+  gsap.to(window, {
+    scrollTo: { y: i * innerHeight, autoKill: false, ease: "Power3.easeInOut" },
+    duration: 0.85
+  });
+}
+
+ScrollTrigger.defaults({
+  // markers: true
+});
+
+sections.forEach((box, i) => {
+  // const mainAnim = gsap.timeline({ paused: true });
+
+  ScrollTrigger.create({
+    trigger: box,
+    onEnter: () => goToSection(i)
+  });
+
+  ScrollTrigger.create({
+    trigger: box,
+    start: "bottom bottom",
+    onEnterBack: () => goToSection(i)
+  });
 });
