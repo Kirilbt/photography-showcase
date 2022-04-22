@@ -46,6 +46,7 @@ a::after {
   transform-origin: bottom right;
   transition: transform 0.3s ease-out;
 }
+
 a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
@@ -89,6 +90,7 @@ footer a:first-of-type {
   position: absolute;
   font-size: 150px;
   color: grey;
+  pointer-events: none;
 }
 
 .detail {
@@ -127,4 +129,5 @@ footer a:first-of-type {
   transform: translate(0px, 0px);
   pointer-events: none;
   opacity: 1;
+
 }

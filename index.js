@@ -89,8 +89,10 @@ insertSection(infos, container)
 
 
 /**
- * Change background color
+ * GSAP
  */
+
+// Change background color on scroll
 
 gsap.utils.toArray(".box").map((elem) => {
 
@@ -100,7 +102,7 @@ gsap.utils.toArray(".box").map((elem) => {
     trigger: elem,
     start: 'top 5%',
     end: 'bottom 5%',
-    // markers: true,
+    markers: false,
     onToggle() {
       gsap.to('body', {
         backgroundColor: bgColor,
@@ -110,7 +112,7 @@ gsap.utils.toArray(".box").map((elem) => {
   });
 
   return () => {
-    bGcolor = elem.getAttribute('data-color');
+    bgColor = elem.getAttribute('data-color');
     if (trigger.isActive) {
       gsap.killTweensOf("body");
       gsap.set("body", {
@@ -121,48 +123,77 @@ gsap.utils.toArray(".box").map((elem) => {
 });
 
 let sections = gsap.utils.toArray(".box");
+let images = gsap.utils.toArray('.image')
 
-/**
- * Immediate snap
- */
+// Immediate snap
 
 function goToSection(i) {
   gsap.to(window, {
     scrollTo: { y: i * innerHeight, autoKill: false, ease: "Power3.easeInOut" },
     duration: 0.8
-  });
+  })
 }
 
 ScrollTrigger.defaults({
-  // markers: true
-});
+  markers: false
+})
 
 sections.forEach((box, i) => {
   const mainAnim = gsap.timeline({ paused: true });
 
   ScrollTrigger.create({
     trigger: box,
-    onEnter: () => goToSection(i)
-  });
+    onEnter: () => goToSection(i),
+  })
 
   ScrollTrigger.create({
     trigger: box,
     start: "bottom bottom",
     onEnterBack: () => goToSection(i)
-  });
+  })
+})
 
-  /**
-   * Mouse hover
-   */
 
-  box.addEventListener("mouseenter", () => {
-    gsap.to(box, {scale: 1.1, duration: 0.5, overwrite: true});
+// Mouse hover
+const animateDetail = (opacity, delay) => {
+  gsap.to('.detail', {
+    opacity: opacity,
+    duration: 0.3,
+    delay: delay
+  })
+}
+const animateTitle = (opacity) => {
+  gsap.to('.title', {
+    opacity: opacity,
+    duration: 0.3,
+    from: 'center'
+  })
+}
+
+images.forEach((image, i) => {
+  image.addEventListener("mouseenter", () => {
+    gsap.to(image, {
+      scale: 1.1,
+      duration: 0.5,
+      overwrite: true,
+      onToggle: () => {
+        animateDetail(0, 0),
+        animateTitle(0)
+      }
+    })
   })
 
-  box.addEventListener("mouseleave", () => {
-    gsap.to(sections, {scale: 1, duration: 0.5, overwrite: true});
+  image.addEventListener("mouseleave", () => {
+    gsap.to(images, {
+      scale: 1,
+      duration: 0.5,
+      overwrite: true,
+      onToggle: () => {
+        animateDetail(1, 0.2),
+        animateTitle(1)
+      }
+    })
   })
-
 });
 
 /**
