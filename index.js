@@ -1,9 +1,9 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
 gsap.registerPlugin(ScrollTrigger)
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollToPlugin)
 
 const infos = [
   {
@@ -42,50 +42,50 @@ const infos = [
  * Generate content
  */
 
-const insertSection = (array, container) => {
-  array.forEach((e, index) => {
-    let section = document.createElement('section')
-    section.classList.add('box')
-    section.setAttribute('data-color', array[index]['color']);
-    container.appendChild(section)
-    insertImage(array, section, index)
-  })
-}
+// const insertSection = (array, container) => {
+//   array.forEach((e, index) => {
+//     let section = document.createElement('section')
+//     section.classList.add('box')
+//     section.setAttribute('data-color', array[index]['color']);
+//     container.appendChild(section)
+//     insertImage(array, section, index)
+//   })
+// }
 
-const insertImage = (array, container, index) => {
-  let img = new Image()
-  img.src = array[index]['image']
-  img.classList.add('image')
-  container.appendChild(img)
+// const insertImage = (array, container, index) => {
+//   let img = new Image()
+//   img.src = array[index]['image']
+//   img.classList.add('image')
+//   container.appendChild(img)
 
-  insertTitle(array, container, index)
-}
+//   insertTitle(array, container, index)
+// }
 
-const insertTitle = (array, container, index) => {
-  let titleContainer = document.createElement('p')
-  titleContainer.classList.add('title')
-  let title = document.createTextNode(array[index]['title'])
-  titleContainer.appendChild(title)
-  container.appendChild(titleContainer)
+// const insertTitle = (array, container, index) => {
+//   let titleContainer = document.createElement('p')
+//   titleContainer.classList.add('title')
+//   let title = document.createTextNode(array[index]['title'])
+//   titleContainer.appendChild(title)
+//   container.appendChild(titleContainer)
 
-  insertDetail(array, container, index)
-}
+//   insertDetail(array, container, index)
+// }
 
-const insertDetail = (array, container, index) => {
-  let detailContainer = document.createElement('div')
-  detailContainer.classList.add('detail')
+// const insertDetail = (array, container, index) => {
+//   let detailContainer = document.createElement('div')
+//   detailContainer.classList.add('detail')
 
-  array[index]['detail'].forEach((e, i) => {
-    let detail = document.createElement('p')
-    let innerDetail = document.createTextNode(array[index]['detail'][i])
-    detail.appendChild(innerDetail)
-    detailContainer.appendChild(detail)
-  })
-  container.appendChild(detailContainer)
-}
+//   array[index]['detail'].forEach((e, i) => {
+//     let detail = document.createElement('p')
+//     let innerDetail = document.createTextNode(array[index]['detail'][i])
+//     detail.appendChild(innerDetail)
+//     detailContainer.appendChild(detail)
+//   })
+//   container.appendChild(detailContainer)
+// }
 
-let container = document.querySelector('.container')
-insertSection(infos, container)
+// let container = document.querySelector('.container')
+// insertSection(infos, container)
 
 
 /**
@@ -94,7 +94,7 @@ insertSection(infos, container)
 
 // Change background color on scroll
 
-gsap.utils.toArray(".box").map((elem) => {
+gsap.utils.toArray(".section").map((elem) => {
 
   var bgColor = elem.getAttribute('data-color');
 
@@ -122,7 +122,7 @@ gsap.utils.toArray(".box").map((elem) => {
   }
 });
 
-let sections = gsap.utils.toArray(".box");
+let sections = gsap.utils.toArray(".section");
 let images = gsap.utils.toArray('.image')
 
 // Immediate snap
@@ -138,25 +138,25 @@ ScrollTrigger.defaults({
   markers: false
 })
 
-sections.forEach((box, i) => {
+sections.forEach((section, i) => {
   const mainAnim = gsap.timeline({ paused: true });
 
   ScrollTrigger.create({
-    trigger: box,
+    trigger: section,
     onEnter: () => goToSection(i),
   })
 
   ScrollTrigger.create({
-    trigger: box,
+    trigger: section,
     start: "bottom bottom",
     onEnterBack: () => goToSection(i)
   })
 })
 
 
-// Mouse hover
-const animateDetail = (opacity, delay) => {
-  gsap.to('.detail', {
+//  Cards Mouse hover
+const animateDetails = (opacity, delay) => {
+  gsap.to('.details', {
     opacity: opacity,
     duration: 0.3,
     delay: delay
@@ -166,7 +166,6 @@ const animateTitle = (opacity) => {
   gsap.to('.title', {
     opacity: opacity,
     duration: 0.3,
-    from: 'center'
   })
 }
 
@@ -177,7 +176,7 @@ images.forEach((image, i) => {
       duration: 0.5,
       overwrite: true,
       onToggle: () => {
-        animateDetail(0, 0),
+        animateDetails(0, 0),
         animateTitle(0)
       }
     })
@@ -189,21 +188,63 @@ images.forEach((image, i) => {
       duration: 0.5,
       overwrite: true,
       onToggle: () => {
-        animateDetail(1, 0.2),
+        animateDetails(1, 0.2),
         animateTitle(1)
       }
     })
   })
-});
+})
 
 /**
  * Custom Cursor
  */
 
-const customCursorInner = document.querySelector('.custom__cursor__inner')
-const customCursorOuter = document.querySelector('.custom__cursor__outer')
+const cursor = document.querySelector('.cursor-inner')
+const follower = document.querySelector('.cursor-outer')
+
+var posX = 0
+posY = 0
+clientX = 0
+clientY = 0
+
+gsap.to({}, {
+  duration: 0.016,
+  repeat: -1,
+  onRepeat: () => {
+    posX += (clientX - posX) / 9
+    posY += (clientY - posY) / 9
+
+    gsap.set(follower, {
+      css: {
+        left: posX - 20,
+        top: posY - 20
+      }
+    })
+
+    gsap.set(cursor, {
+      css: {
+        left: clientX,
+        top: clientY
+      }
+    })
+  }
+})
 
 document.addEventListener('mousemove', e => {
-  customCursorInner.setAttribute('style', 'top: '+(e.clientY - 4)+'px; left: '+(e.clientX - 4)+'px;')
-  customCursorOuter.setAttribute('style', 'top: '+(e.clientY - 24)+'px; left: '+(e.clientX - 24)+'px;')
+  clientX = e.clientX
+  clientY = e.clientY
+})
+
+images.forEach((image) => {
+
+  image.addEventListener('mouseenter', () => {
+    cursor.classList.add('active')
+    follower.classList.add('active')
+  })
+
+  image.addEventListener('mouseleave', () => {
+    cursor.classList.remove('active')
+    follower.classList.remove('active')
+  })
+
 })
