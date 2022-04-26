@@ -5,88 +5,9 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 gsap.registerPlugin(ScrollTrigger)
 gsap.registerPlugin(ScrollToPlugin)
 
-const infos = [
-  {
-    'image': new URL('static/fruits.jpg', import.meta.url),
-    'title': 'Fruits',
-    'detail': ['May 2019','Bern, Switzerland'],
-    'color': '#fff1d8'
-  },
-  {
-    'image': new URL('static/power.jpg', import.meta.url),
-    'title': 'Power',
-    'detail': ['November 2019', 'Lausanne, Switzerland'],
-    'color': '#d1ebd3'
-  },
-  {
-    'image': new URL('static/minimal.jpg', import.meta.url),
-    'title': 'Minimal',
-    'detail': ['March 2019', 'Bern, Switzerland'],
-    'color': '#f0f0f0'
-  },
-  {
-    'image': new URL('static/neon.jpg', import.meta.url),
-    'title': 'Neon',
-    'detail': ['November 2019', 'Zurich, Switzerland'],
-    'color': '#d8fff6'
-  },
-  {
-    'image': new URL('static/light.jpg', import.meta.url),
-    'title': 'Light',
-    'detail': ['September 2018', 'Milano, Italy'],
-    'color': '#fff1d8'
-  }
-]
-
-/**
- * Generate content
- */
-
-// const insertSection = (array, container) => {
-//   array.forEach((e, index) => {
-//     let section = document.createElement('section')
-//     section.classList.add('box')
-//     section.setAttribute('data-color', array[index]['color']);
-//     container.appendChild(section)
-//     insertImage(array, section, index)
-//   })
-// }
-
-// const insertImage = (array, container, index) => {
-//   let img = new Image()
-//   img.src = array[index]['image']
-//   img.classList.add('image')
-//   container.appendChild(img)
-
-//   insertTitle(array, container, index)
-// }
-
-// const insertTitle = (array, container, index) => {
-//   let titleContainer = document.createElement('p')
-//   titleContainer.classList.add('title')
-//   let title = document.createTextNode(array[index]['title'])
-//   titleContainer.appendChild(title)
-//   container.appendChild(titleContainer)
-
-//   insertDetail(array, container, index)
-// }
-
-// const insertDetail = (array, container, index) => {
-//   let detailContainer = document.createElement('div')
-//   detailContainer.classList.add('detail')
-
-//   array[index]['detail'].forEach((e, i) => {
-//     let detail = document.createElement('p')
-//     let innerDetail = document.createTextNode(array[index]['detail'][i])
-//     detail.appendChild(innerDetail)
-//     detailContainer.appendChild(detail)
-//   })
-//   container.appendChild(detailContainer)
-// }
-
-// let container = document.querySelector('.container')
-// insertSection(infos, container)
-
+let sections = gsap.utils.toArray(".section");
+let images = gsap.utils.toArray('.image')
+let links = gsap.utils.toArray('a')
 
 /**
  * GSAP
@@ -108,22 +29,24 @@ gsap.utils.toArray(".section").map((elem) => {
         backgroundColor: bgColor,
         duration: '1.2'
       })
+
+      gsap.to('.title', {
+        color: bgColor,
+        duration: '1.2'
+      })
     }
   });
 
   return () => {
-    bgColor = elem.getAttribute('data-color');
+    bgColor = elem.getAttribute('data-color')
     if (trigger.isActive) {
-      gsap.killTweensOf("body");
-      gsap.set("body", {
+      gsap.killTweensOf('body');
+      gsap.set('body', {
         backgroundColor: bgColor
       })
     }
   }
 });
-
-let sections = gsap.utils.toArray(".section");
-let images = gsap.utils.toArray('.image')
 
 // Immediate snap
 
@@ -139,7 +62,7 @@ ScrollTrigger.defaults({
 })
 
 sections.forEach((section, i) => {
-  const mainAnim = gsap.timeline({ paused: true });
+  const mainAnim = gsap.timeline({ paused: true })
 
   ScrollTrigger.create({
     trigger: section,
@@ -199,13 +122,13 @@ images.forEach((image, i) => {
  * Custom Cursor
  */
 
-const cursor = document.querySelector('.cursor-inner')
-const follower = document.querySelector('.cursor-outer')
+const cursorInner = document.querySelector('.cursor-inner')
+const cursorOuter = document.querySelector('.cursor-outer')
 
-var posX = 0
-posY = 0
-clientX = 0
-clientY = 0
+let posX = 0
+let posY = 0
+let clientX = 0
+let clientY = 0
 
 gsap.to({}, {
   duration: 0.016,
@@ -214,14 +137,14 @@ gsap.to({}, {
     posX += (clientX - posX) / 9
     posY += (clientY - posY) / 9
 
-    gsap.set(follower, {
+    gsap.set(cursorOuter, {
       css: {
         left: posX - 20,
         top: posY - 20
       }
     })
 
-    gsap.set(cursor, {
+    gsap.set(cursorInner, {
       css: {
         left: clientX,
         top: clientY
@@ -236,15 +159,23 @@ document.addEventListener('mousemove', e => {
 })
 
 images.forEach((image) => {
-
   image.addEventListener('mouseenter', () => {
-    cursor.classList.add('active')
-    follower.classList.add('active')
+    cursorInner.classList.add('active')
+    cursorOuter.classList.add('active')
   })
 
   image.addEventListener('mouseleave', () => {
-    cursor.classList.remove('active')
-    follower.classList.remove('active')
+    cursorInner.classList.remove('active')
+    cursorOuter.classList.remove('active')
+  })
+})
+
+links.forEach((link) => {
+  link.addEventListener('mouseenter', () => {
+    cursorOuter.classList.add('active')
   })
 
+  link.addEventListener('mouseleave', () => {
+    cursorOuter.classList.remove('active')
+  })
 })
