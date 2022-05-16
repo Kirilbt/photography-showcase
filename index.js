@@ -30,10 +30,10 @@ gsap.utils.toArray(".section").map((elem) => {
         duration: '1.2'
       })
 
-      gsap.to('.title', {
-        color: bgColor,
-        duration: '1.2'
-      })
+      // gsap.to('.title', {
+      //   color: bgColor,
+      //   duration: '1.2'
+      // })
     }
   });
 

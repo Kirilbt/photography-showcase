@@ -13,6 +13,7 @@ body {
   font-family: neue-haas-unica, sans-serif;
   font-weight: 400;
   font-style: normal;
+  font-size: 1.1rem;
   color: #333;
 }
 
@@ -26,17 +27,16 @@ nav {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .nav-items a {
-  margin-left: 16px;
+  margin-left: 1rem;
 }
 
 a {
   text-decoration: none;
   color: #333;
-  font-size: 18px;
   display: inline-block;
   position: relative;
 }
@@ -66,11 +66,11 @@ footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
 }
 
 footer a {
-  margin-left: 16px;
+  margin-left: 1rem;
 }
 
 .container {
@@ -80,11 +80,10 @@ footer a {
 }
 
 .section {
-  position: relative;
+  /* position: relative; */
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -95,11 +94,12 @@ footer a {
 .title {
   position: absolute;
   font-family: orpheuspro, serif;
-  font-size: 100px;
+  font-size: 8rem;
   font-weight: 400;
   font-style: normal;
-  color: #333;
+  color: rgb(155, 155, 155);
   pointer-events: none;
+  mix-blend-mode: luminosity;
 }
 
 .details {
@@ -107,16 +107,18 @@ footer a {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 }
 
 .details p {
   color: #333;
 }
 
+/* Cursor */
+
 .cursor-inner {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   position: fixed;
   background-color: #333;
   border-radius: 100%;
@@ -154,8 +156,8 @@ footer a {
 }
 
 .cursor-outer {
-  width:  40px;
-  height: 40px;
+  width:  2.5rem;
+  height: 2.5rem;
   border-radius: 100%;
   background-color: transparent;
   border: 1px solid #333;
@@ -192,7 +194,7 @@ footer a {
 
 .about-paragraph {
   position: absolute;
-  font-size: 40px;
+  font-size: 2.5rem;
   font-family: orpheuspro, serif;
   max-width: 100vh;
   text-align: center;
@@ -204,6 +206,6 @@ footer a {
 }
 
 .about-link {
-  font-size: 40px;
+  font-size: 2.5rem;
   font-family: orpheuspro, serif;
 }
