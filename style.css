@@ -27,11 +27,11 @@ nav {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 1rem;
+  padding: 16px;
 }
 
 .nav-items a {
-  margin-left: 1rem;
+  margin-left: 16px;
 }
 
 a {
@@ -66,11 +66,11 @@ footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 1rem;
+  padding: 16px;
 }
 
 footer a {
-  margin-left: 1rem;
+  margin-left: 16px;
 }
 
 .container {
@@ -107,7 +107,7 @@ footer a {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 .details p {
@@ -117,8 +117,8 @@ footer a {
 /* Cursor */
 
 .cursor-inner {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 8px;
+  height: 8px;
   position: fixed;
   background-color: #333;
   border-radius: 100%;
@@ -156,8 +156,8 @@ footer a {
 }
 
 .cursor-outer {
-  width:  2.5rem;
-  height: 2.5rem;
+  width:  40px;
+  height: 40px;
   border-radius: 100%;
   background-color: transparent;
   border: 1px solid #333;
