@@ -10,6 +10,13 @@ let images = gsap.utils.toArray('.image')
 let links = gsap.utils.toArray('a')
 
 /**
+ * Counter
+ */
+
+let totalNum = sections.length
+document.querySelector('.totalNum').innerHTML = totalNum
+
+/**
  * GSAP
  */
 
@@ -55,6 +62,7 @@ function goToSection(i) {
     scrollTo: { y: i * innerHeight, autoKill: false, ease: "Power3.easeInOut" },
     duration: 0.8
   })
+  document.querySelector('.currentNum').innerHTML = i + 1
 }
 
 ScrollTrigger.defaults({
@@ -78,13 +86,13 @@ sections.forEach((section, i) => {
 
 
 //  Cards Mouse hover
-const animateDetails = (opacity, delay) => {
-  gsap.to('.details', {
-    opacity: opacity,
-    duration: 0.3,
-    delay: delay
-  })
-}
+// const animateDetails = (opacity, delay) => {
+//   gsap.to('.details', {
+//     opacity: opacity,
+//     duration: 0.3,
+//     delay: delay
+//   })
+// }
 const animateTitle = (opacity) => {
   gsap.to('.title', {
     opacity: opacity,
@@ -99,7 +107,7 @@ images.forEach((image, i) => {
       duration: 0.5,
       overwrite: true,
       onToggle: () => {
-        animateDetails(0, 0),
+        // animateDetails(0, 0),
         animateTitle(0)
       }
     })
@@ -111,7 +119,7 @@ images.forEach((image, i) => {
       duration: 0.5,
       overwrite: true,
       onToggle: () => {
-        animateDetails(1, 0.2),
+        // animateDetails(1, 0.2),
         animateTitle(1)
       }
     })
