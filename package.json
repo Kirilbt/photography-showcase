@@ -1,4 +1,10 @@
 {
+  "name": "photography-showcase",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
   "dependencies": {
     "gsap": "^3.10.3",
     "parcel": "^2.4.1",
